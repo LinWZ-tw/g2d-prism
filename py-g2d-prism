@@ -1,0 +1,100 @@
+#env python3
+#coding: utf-8
+"""
+Created on Thu Sep 16 22:52:03 2021
+@author: wei-zhi lin
+
+"""
+#%%
+#import modules
+import pandas as pd
+import rpy2 #for import of R packages
+#%%
+
+#%%
+#input 
+#for testrun: 
+#/Users/linwei-zhi/Desktop/Drug Repositioning for GBM using GWAS data/list-of-selected-drugs-20210914.csv
+print("path of input list =")
+input_path = input()
+input_compounds = pd.read_csv(input_path)
+print("\n", "selected compounds = \n", input_compounds, "\n")
+print("select primary tissue of interest: \n\
+esophagus \n\
+uterus \n\
+pancreas \n\
+colorectal \n\
+liver \n\
+central_nervous_system \n\
+urinary_tract \n\
+lung \n\
+rhabdoid \n\
+ovary \n\
+bone \n\
+mesothelioma \n\
+skin \n\
+kidney \n\
+soft_tissue \n\
+thyroid \n\
+upper_aerodigestive \n\
+peripheral_nervous_system \n\
+gastric \n\
+bile_duct \n\
+breast \n\
+prostate \n\
+fibroblast \n\
+rhabdomyosarcoma")
+input_pt = input()
+#%%
+#get prism data 19Q4
+url_cell_line_info_19Q4 = "https://ndownloader.figshare.com/files/20237718"
+cell_line_info = pd.read_csv(url_cell_line_info_19Q4)
+url_treatment_info_19Q4 = "https://ndownloader.figshare.com/files/20237715"
+treatment_info = pd.read_csv(url_treatment_info_19Q4)
+url_prism_data_19Q4 = "https://ndownloader.figshare.com/files/20237709"
+prism_data = pd.read_csv(url_prism_data_19Q4)
+
+
+i_prism_data = prism_data.iloc[:,0]
+print(i_prism_data)
+i_prism_data.to_excel("i_prism_data.xlsx")
+#%%
+#selected cell line
+f_cell_line_info = cell_line_info[cell_line_info["primary_tissue"] == input_pt]
+df_cell_line_info = f_cell_line_info[["depmap_id", "ccle_name", "primary_tissue", "secondary_tissue", "tertiary_tissue"]]
+len_cell_line_list = len(df_cell_line_info)
+print("number of selected cell lines =", len_cell_line_list)
+df_cell_line_info.to_excel("df_cell_line_info.xlsx")
+#%%
+#selected compounds
+f_treatment_info = pd.merge(input_compounds, treatment_info, on="name")
+df_treatment_info = f_treatment_info[["name", "column_name"]]
+tdf_treatment_info = df_treatment_info.transpose()
+tdf_treatment_info.to_excel("tdf_treatment_info.xlsx")
+#%%
+#align selected cell line and compounds to prism data
+"""
+problem here
+"""
+
+f_prism_data = pd.merge(df_cell_line_info, prism_data, how = "inner", left_on = "depmap_id", right_on = prism_data[:0], sort = bool)
+print(f_prism_data)
+f_prism_data.to_excel("f_prism_data.xlsx")
+
+f_prism_data = pd.concat([df_cell_line_info, prism_data], Left_on = "depmap_id", Right_on = "index",  axis= 1, join="outer", sort=bool)
+
+
+
+#%%
+"""
+problem here
+"""
+
+df_prism_data = f_prism_data.fillna(value = "NA", inplace = False)
+print(df_prism_data)
+
+tf_prism_data = df_prism_data[df_prism_data['depmap_id'].str.contains("ACH")]        
+print(tf_prism_data)
+tf_prism_data.to_excel("tf_prism_data.xlsx")   
+#
+
