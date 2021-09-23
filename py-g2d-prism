@@ -48,7 +48,7 @@ input_pt = input()
 print('--------------------------------------------------------------------')
 #%%
 #get prism data 19Q4
-print('data downloading ...')
+print('download data from PRISM ...')
 url_cell_line_info_19Q4 = 'https://ndownloader.figshare.com/files/20237718'
 cell_line_info = pd.read_csv(url_cell_line_info_19Q4)
 url_treatment_info_19Q4 = 'https://ndownloader.figshare.com/files/20237715'
