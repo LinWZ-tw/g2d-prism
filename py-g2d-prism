@@ -3,7 +3,6 @@
 """
 Created on Thu Sep 16 22:52:03 2021
 @author: wei-zhi lin
-
 """
 #%%
 #import modules
@@ -83,12 +82,10 @@ list_cell_treatment_id.insert(0, "primary_tissue")
 list_cell_treatment_id.insert(0, "ccle_name")
 list_cell_treatment_id.insert(0, "depmap_id")
 print (list_cell_treatment_id)
-
 df_prism_data = f_prism_data[list_cell_treatment_id]
 print(df_prism_data)
 df_prism_data.to_excel("df_prism_data.xlsx")
 
 #%%
 
-#
 
