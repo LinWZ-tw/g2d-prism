@@ -9,7 +9,6 @@ Created on Thu Sep 16 22:52:03 2021
 import pandas as pd
 import numpy as np
 import rpy2 #for import of R packages
-#%%
 
 #%%
 #input data 
