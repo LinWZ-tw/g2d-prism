@@ -73,7 +73,6 @@ tdf_treatment_info.to_excel("tdf_treatment_info.xlsx")
 #%%
 #align selected cell line and compounds to prism data
 f_prism_data = pd.merge(df_cell_line_info, prism_data, how = "inner", left_on = "depmap_id", right_on = "Unnamed: 0", sort = bool)
-print(f_prism_data)
 
 list_cell_treatment_id = list(f_treatment_info["column_name"])
 list_cell_treatment_id.insert(0, "tertiary_tissue")
@@ -81,10 +80,12 @@ list_cell_treatment_id.insert(0, "secondary_tissue")
 list_cell_treatment_id.insert(0, "primary_tissue")
 list_cell_treatment_id.insert(0, "ccle_name")
 list_cell_treatment_id.insert(0, "depmap_id")
-print (list_cell_treatment_id)
+
 df_prism_data = f_prism_data[list_cell_treatment_id]
-print(df_prism_data)
-df_prism_data.to_excel("df_prism_data.xlsx")
+tf_prism_data = pd.concat([tdf_treatment_info, df_prism_data], axis = 0)
+tf_prism_data = tf_prism_data.set_index("depmap_id")
+print(tf_prism_data)
+tf_prism_data.to_excel("tf_prism_data.xlsx")
 
 #%%
 
