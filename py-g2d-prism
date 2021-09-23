@@ -91,7 +91,7 @@ f_prism_data = pd.concat([tif_treatment_info, f_prism_data])
 f_prism_data = f_prism_data[list_cell_treatment_id]
 f_prism_data = f_prism_data.set_index('depmap_id')
 print(f_prism_data)
-f_prism_data.to_excel('f_prism_data.xlsx')
+f_prism_data.to_excel('result.xlsx')
 
 #%%
 
