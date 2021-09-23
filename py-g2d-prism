@@ -13,11 +13,14 @@ import rpy2 #for import of R packages
 
 #%%
 #input data 
-print("path of input list =")
+#for testrun: 
+#/Users/linwei-zhi/Desktop/Drug Repositioning for GBM using GWAS data/list-of-selected-drugs-20210914.csv
+print('path of input list =')
 input_path = input()
 input_compounds = pd.read_csv(input_path)
-print("\n", "selected compounds = \n", input_compounds, "\n")
-print("select primary tissue of interest: \n\
+print('\n', 'selected compounds = \n', input_compounds, '\n')
+print('--------------------------------------------------------------------')
+print('select primary tissue of interest: \n\
 esophagus \n\
 uterus \n\
 pancreas \n\
@@ -41,51 +44,53 @@ bile_duct \n\
 breast \n\
 prostate \n\
 fibroblast \n\
-rhabdomyosarcoma")
+rhabdomyosarcoma')
 input_pt = input()
+
+print('--------------------------------------------------------------------')
 #%%
 #get prism data 19Q4
-url_cell_line_info_19Q4 = "https://ndownloader.figshare.com/files/20237718"
+url_cell_line_info_19Q4 = 'https://ndownloader.figshare.com/files/20237718'
 cell_line_info = pd.read_csv(url_cell_line_info_19Q4)
-url_treatment_info_19Q4 = "https://ndownloader.figshare.com/files/20237715"
+url_treatment_info_19Q4 = 'https://ndownloader.figshare.com/files/20237715'
 treatment_info = pd.read_csv(url_treatment_info_19Q4)
-url_prism_data_19Q4 = "https://ndownloader.figshare.com/files/20237709"
+url_prism_data_19Q4 = 'https://ndownloader.figshare.com/files/20237709'
 prism_data = pd.read_csv(url_prism_data_19Q4)
 
 #%%
 #selected cell line
-f_cell_line_info = cell_line_info[cell_line_info["primary_tissue"] == input_pt]
-df_cell_line_info = f_cell_line_info[["depmap_id", "ccle_name", "primary_tissue", "secondary_tissue", "tertiary_tissue"]]
-len_cell_line_list = len(df_cell_line_info)
-print("number of selected cell lines =", len_cell_line_list)
-df_cell_line_info.to_excel("df_cell_line_info.xlsx")
+f_cell_line_info = cell_line_info[cell_line_info['primary_tissue'] == input_pt]
+f_cell_line_info = f_cell_line_info[['depmap_id','ccle_name','primary_tissue', 'secondary_tissue', 'tertiary_tissue']]
+len_cell_line_list = len(f_cell_line_info)
+print('number of selected cell lines =', len_cell_line_list)
+f_cell_line_info.to_excel('f_cell_line_info.xlsx')
 
 #selected compounds
-f_treatment_info = pd.merge(input_compounds, treatment_info, on="name")
-f_treatment_info.to_excel("f_treatment_info.xlsx")
-df_treatment_info = f_treatment_info["column_name", "name"]
-df_treatment_info = df_treatment_info.set_index("column_name")
-tdf_treatment_info = df_treatment_info.transpose()
-len_treatment = len(df_treatment_info)
+f_treatment_info = pd.merge(input_compounds, treatment_info, on='name')
+f_treatment_info = f_treatment_info[['column_name', 'name']]
+if_treatment_info = f_treatment_info.set_index('column_name')
+if_treatment_info.to_excel('f_treatment_info.xlsx')
+tif_treatment_info = if_treatment_info.transpose()
+len_treatment = len(f_treatment_info)
 print("number of treatments = ", len_treatment)
-tdf_treatment_info.to_excel("tdf_treatment_info.xlsx")
+tif_treatment_info.to_excel("tif_treatment_info.xlsx")
 
+print('--------------------------------------------------------------------')
 #%%
 #align selected cell line and compounds to prism data
-f_prism_data = pd.merge(df_cell_line_info, prism_data, how = "inner", left_on = "depmap_id", right_on = "Unnamed: 0", sort = bool)
+list_cell_treatment_id = list(f_treatment_info['column_name'])
+list_cell_treatment_id.insert(0, 'tertiary_tissue')
+list_cell_treatment_id.insert(0, 'secondary_tissue')
+list_cell_treatment_id.insert(0, 'primary_tissue')
+list_cell_treatment_id.insert(0, 'ccle_name')
+list_cell_treatment_id.insert(0, 'depmap_id')
 
-list_cell_treatment_id = list(f_treatment_info["column_name"])
-list_cell_treatment_id.insert(0, "tertiary_tissue")
-list_cell_treatment_id.insert(0, "secondary_tissue")
-list_cell_treatment_id.insert(0, "primary_tissue")
-list_cell_treatment_id.insert(0, "ccle_name")
-list_cell_treatment_id.insert(0, "depmap_id")
-
-df_prism_data = f_prism_data[list_cell_treatment_id]
-tf_prism_data = pd.concat([tdf_treatment_info, df_prism_data], axis = 0)
-tf_prism_data = tf_prism_data.set_index("depmap_id")
-print(tf_prism_data)
-tf_prism_data.to_excel("tf_prism_data.xlsx")
+f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
+f_prism_data = pd.concat([tif_treatment_info, f_prism_data])
+f_prism_data = f_prism_data[list_cell_treatment_id]
+f_prism_data = f_prism_data.set_index('depmap_id')
+print(f_prism_data)
+f_prism_data.to_excel('f_prism_data.xlsx')
 
 #%%
 
