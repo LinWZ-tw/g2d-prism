@@ -2,6 +2,7 @@
 #coding: utf-8
 """
 @author: Wei-Zhi lin
+lin.wz@chulab.tw
 """
 #input data 
 import pandas as pd
