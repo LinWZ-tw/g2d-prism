@@ -1,4 +1,8 @@
-#%%
+#env python3
+#coding: utf-8
+"""
+@author: Wei-Zhi lin
+"""
 #input data 
 import pandas as pd
 print('path of input list =')
