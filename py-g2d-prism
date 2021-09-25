@@ -7,8 +7,7 @@ Created on Thu Sep 16 22:52:03 2021
 the following module might be needed
 rpy2
 pandas
-    openpyxl
-
+...
 """
 
 
