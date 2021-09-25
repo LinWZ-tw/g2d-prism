@@ -39,13 +39,13 @@ print('--------------------------------------------------------------------')
 #%%
 import pandas as pd
 #input data 
-#for testrun: 
-#/Users/linwei-zhi/Desktop/Drug Repositioning for GBM using GWAS data/list-of-selected-drugs-20210914.csv
 print('path of input list =')
 input_path = input() 
     #type in the path of input
-    #example-input could be downloaded from here: https://github.com/LinWZ-tw/g2d-prism/blob/e246e7f4466b12b836133b2759866a4872d03ebe/example-input-compounds-for-py.csv
-    #                    or downloaded from here: https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
+    #example-input could be downloaded from here: 
+    #https://github.com/LinWZ-tw/g2d-prism/blob/e246e7f4466b12b836133b2759866a4872d03ebe/example-input-compounds-for-py.csv
+    #                    or downloaded from here: 
+    #https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
 input_compounds = pd.read_csv(input_path)
 print('\n', 'selected compounds = \n', input_compounds, '\n')
 print('--------------------------------------------------------------------')
@@ -120,8 +120,9 @@ f_prism_data = f_prism_data[list_cell_treatment_id]
 f_prism_data = f_prism_data.set_index('depmap_id')
 
 #export results
-print(f_prism_data)
-print('\n \n \n output result to "result.xlsx" \n \n \n')
+print('\n',f_prism_data)
+print('\n\
+      output result to "result.xlsx"')
 f_prism_data.to_excel('result.xlsx')
 
 #%%
