@@ -18,24 +18,27 @@ pandas
 
 #%%
 #get prism data 19Q4
-import pandas as pd
-print('download data from PRISM ...\n\
+print('Start to download data from PRSIM 19Q4. \n \
 (It will take few minutes)')
+import pandas as pd
+#get cell line information
+print('loading cell line information')
 url_cell_line_info_19Q4 = 'https://ndownloader.figshare.com/files/20237718' 
 cell_line_info = pd.read_csv(url_cell_line_info_19Q4)
-    #get cell line information
+#get compounds/treatments information
+print('loading treatments/compounds information')
 url_treatment_info_19Q4 = 'https://ndownloader.figshare.com/files/20237715' 
 treatment_info = pd.read_csv(url_treatment_info_19Q4)
-    #get compounds/treatments information
+#get sensitivity data
+print('loading sensitivity data')
 url_prism_data_19Q4 = 'https://ndownloader.figshare.com/files/20237709' 
 prism_data = pd.read_csv(url_prism_data_19Q4)
-    #get sensitivity data
 
 print('--------------------------------------------------------------------')
 #%%
-#input data 
 import pandas as pd
 print('pandas path: ', pd.__path__)
+#input data 
 print('path of input list =')
 input_path = input() 
     #type in the path of input
