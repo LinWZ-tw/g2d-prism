@@ -35,10 +35,12 @@ url_prism_data_19Q4 = 'https://ndownloader.figshare.com/files/20237709'
 prism_data = pd.read_csv(url_prism_data_19Q4)
 
 print('--------------------------------------------------------------------')
+
 #%%
 import pandas as pd
-print('pandas path: ', pd.__path__)
 #input data 
+#for testrun: 
+#/Users/linwei-zhi/Desktop/Drug Repositioning for GBM using GWAS data/list-of-selected-drugs-20210914.csv
 print('path of input list =')
 input_path = input() 
     #type in the path of input
@@ -72,7 +74,7 @@ breast \n\
 prostate \n\
 fibroblast \n\
 rhabdomyosarcoma \n\
-(copy the term and paste here ..............')
+...............................copy the term and paste below:')
 input_pt = input()
 
 print('--------------------------------------------------------------------')
@@ -100,6 +102,7 @@ t_i_f_treatment_info.to_excel("compound_info.xlsx")
     #export compounds/treatments of input (as head in result table )
 
 print('--------------------------------------------------------------------')
+
 #%%
 #align selected cell line to prism data
 f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
@@ -118,7 +121,7 @@ f_prism_data = f_prism_data.set_index('depmap_id')
 
 #export results
 print(f_prism_data)
-print('output result to "result.xlsx"')
+print('\n \n \n output result to "result.xlsx" \n \n \n')
 f_prism_data.to_excel('result.xlsx')
 
 #%%
