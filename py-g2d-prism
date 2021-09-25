@@ -6,8 +6,6 @@ lin.wz@chulab.tw
 """
 #%%
 #input data 
-#for testrun: 
-#/Users/linwei-zhi/Desktop/Drug Repositioning for GBM using GWAS data/list-of-selected-drugs-20210914.csv
 import pandas as pd
 print('path of input list =')
 input_path = input() 
