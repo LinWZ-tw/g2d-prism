@@ -128,7 +128,7 @@ f_prism_data = f_prism_data.set_index('depmap_id')
 #export results
 print('\n',f_prism_data)
 print('\n\
-      output result to "result.xlsx"')
+output result to "result.xlsx"')
 f_prism_data.to_excel('result.xlsx')
 
 #%%
