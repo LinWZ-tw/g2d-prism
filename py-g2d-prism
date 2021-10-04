@@ -3,20 +3,28 @@
 """
 @author: wei-zhi lin
 
-the following modules/packages are needed
+the following module/package might be needed
 rpy2
 pandas
 gep2pep
 """
+#%%
+#import statement 
+import rpy2
+import rpy2.situation
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
 
+import pandas as pd
+import sys
 
 #%%
 #for conduct gep2pep
 #unfinished
 #for importing R packages
+
 print('--------------------------------------------------------------------')
 #%%
-import pandas as pd
 #input data 
 print('path of input list =')
 input_path = input() 
@@ -55,10 +63,10 @@ fibroblast \n\
 rhabdomyosarcoma \n\
 ...............................copy the term and paste below:')
 
-list_primary_tissue = ['esophagus, uterus, pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
+list_primary_tissue = ['esophagus', 'uterus', 'pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
 input_pt = input() #input 
 
-import sys
+
 if input_pt in list_primary_tissue:
     print ('input in list, checked!')
 else:
@@ -70,7 +78,6 @@ print('--------------------------------------------------------------------')
 #get prism data 19Q4
 print('Start to download data from PRSIM 19Q4. \n \
 (It will take few minutes)')
-import pandas as pd
 #get cell line information
 print('loading cell line information...')
 url_cell_line_info_19Q4 = 'https://ndownloader.figshare.com/files/20237718' 
