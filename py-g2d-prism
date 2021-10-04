@@ -4,26 +4,15 @@
 @author: wei-zhi lin
 
 the following module/package might be needed
-rpy2
 pandas
-gep2pep
+sys
 """
 #%%
 #import statement 
-import rpy2
-import rpy2.situation
-import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
 
 import pandas as pd
 import sys
 
-#%%
-#for conduct gep2pep
-#unfinished
-#for importing R packages
-
-print('--------------------------------------------------------------------')
 #%%
 #input data 
 print('path of input list =')
