@@ -54,8 +54,6 @@ rhabdomyosarcoma \n\
 
 list_primary_tissue = ['esophagus', 'uterus', 'pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
 input_pt = input() #input 
-
-
 if input_pt in list_primary_tissue:
     print ('input in list, checked!')
 else:
