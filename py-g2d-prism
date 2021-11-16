@@ -9,10 +9,8 @@ sys
 """
 #%%
 #import statement 
-
 import pandas as pd
 import sys
-
 #%%
 #input data 
 print('path of input list =')
@@ -51,7 +49,6 @@ prostate \n\
 fibroblast \n\
 rhabdomyosarcoma \n\
 ...............................copy the term and paste below:')
-
 list_primary_tissue = ['esophagus', 'uterus', 'pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
 input_pt = input() #input 
 if input_pt in list_primary_tissue:
@@ -59,7 +56,6 @@ if input_pt in list_primary_tissue:
 else:
     print ('"', input_pt, '"', 'NOT in list, please check again.')
     sys.exit() #if wrong input, exit.
-
 print('--------------------------------------------------------------------')
 #%%
 #get prism data 19Q4
@@ -75,39 +71,26 @@ treatment_info = pd.read_csv('https://ndownloader.figshare.com/files/20237715')
 #get sensitivity data
 print('loading sensitivity data')
 prism_data = pd.read_csv('https://ndownloader.figshare.com/files/20237709' )
-
 print('--------------------------------------------------------------------')
 #%%
 #filter cell line by selected primary tissue
 f_cell_line_info = cell_line_info[cell_line_info['primary_tissue'] == input_pt]
 f_cell_line_info = f_cell_line_info[['depmap_id','ccle_name','primary_tissue', 'secondary_tissue', 'tertiary_tissue']]
-len_cell_line_list = len(f_cell_line_info)
-print('number of selected cell lines =', len_cell_line_list)
-print('output cell line information to "cell_line_info.xlsx"')
-f_cell_line_info.to_excel('cell_line_info.xlsx')
-    #export cell line information of selected primary tissue
-
+print('number of selected cell lines =', len(f_cell_line_info))
 #filter compounds/treatments by input list
 f_treatment_info = pd.merge(input_compounds, treatment_info, on='name')
 f_treatment_info = f_treatment_info[['column_name', 'name']]
 i_f_treatment_info = f_treatment_info.set_index('column_name')
 i_f_treatment_info.to_excel('f_treatment_info.xlsx')
 t_i_f_treatment_info = i_f_treatment_info.transpose()
-len_treatment = len(f_treatment_info)-1
-print("number of compounds = ", len_treatment) 
-print('output compound information to "compound_info.xlsx"')
-t_i_f_treatment_info.to_excel("compound_info.xlsx")
-    #export compounds/treatments of input (as head in result table )
-
+print("number of compounds = ", len(f_treatment_info)+1) 
 print('--------------------------------------------------------------------')
-
 #%%
 #align selected cell line to prism data
 f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
     #select cell line from prism data
 f_prism_data = pd.concat([t_i_f_treatment_info, f_prism_data], axis = 1)
     #add a head
-
 #align input compounds to prism data
 list_cell_treatment_id = list(f_treatment_info['column_name'])
 list_cell_treatment_id.insert(0, 'primary_tissue')
@@ -116,13 +99,9 @@ list_cell_treatment_id.insert(0, 'depmap_id')
 f_prism_data = f_prism_data[list_cell_treatment_id]
     #select compounds/treatment from prism data
 f_prism_data = f_prism_data.set_index('depmap_id')
-
 #export results
 print('\n',f_prism_data)
 print('\n\
 output result to "result.xlsx"')
 f_prism_data.to_excel('result.xlsx')
-
 #%%
-
-
