@@ -81,7 +81,6 @@ print('number of selected cell lines =', len(f_cell_line_info))
 f_treatment_info = pd.merge(input_compounds, treatment_info, on='name')
 f_treatment_info = f_treatment_info[['column_name', 'name']]
 i_f_treatment_info = f_treatment_info.set_index('column_name')
-i_f_treatment_info.to_excel('f_treatment_info.xlsx')
 t_i_f_treatment_info = i_f_treatment_info.transpose()
 print("number of compounds = ", len(f_treatment_info)+1) 
 print('--------------------------------------------------------------------')
