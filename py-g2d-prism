@@ -105,7 +105,7 @@ print('--------------------------------------------------------------------')
 #align selected cell line to prism data
 f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
     #select cell line from prism data
-f_prism_data = pd.concat([t_i_f_treatment_info, f_prism_data])
+f_prism_data = pd.concat([t_i_f_treatment_info, f_prism_data], axis = 1)
     #add a head
 
 #align input compounds to prism data
