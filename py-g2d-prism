@@ -21,6 +21,7 @@ input_path = input()
     #or downloaded from here: 
     #https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
 input_compounds = pd.read_csv(input_path)
+#%%
 print('\n', 'selected compounds = \n', input_compounds, '\n')
 print('--------------------------------------------------------------------')
 print('select primary tissue of interest from the following list: \n\
@@ -80,18 +81,22 @@ print('number of selected cell lines =', len(f_cell_line_info))
 #filter compounds/treatments by input list
 f_treatment_info = pd.merge(input_compounds, treatment_info, on='name')
 f_treatment_info = f_treatment_info[['column_name', 'name']]
-print("number of compounds = ", len(f_treatment_info)-1) 
+print("number of treatments = ", len(f_treatment_info)-1) 
 print('--------------------------------------------------------------------')
 #%%
 #align selected cell line to prism data
 f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
-    #select cell line from prism data
+
 select_info = ['depmap_id', 'ccle_name','primary_tissue'] # select needed info. column
 headlist = select_info+list(f_treatment_info['column_name'])
 f_prism_data = f_prism_data[headlist]
+
 f_treatment_info = f_treatment_info.set_index('column_name')
 tf_treatment_info = f_treatment_info.transpose()
-f_prism_data = pd.concat([tf_treatment_info, f_prism_data]) #add a head
+tf_treatment_info = f_treatment_info.reset_index(drop=True)
+tf_treatment_info = f_treatment_info.transpose()
+tf_treatment_info.to_excel('tf_treatment_info.xlsx')
+
 #%%
 #export results
 print('output result to "result.xlsx"')
