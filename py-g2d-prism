@@ -95,6 +95,7 @@ f_treatment_info = f_treatment_info.set_index('column_name')
 tf_treatment_info = f_treatment_info.transpose()
 tf_treatment_info = f_treatment_info.reset_index(drop=True)
 tf_treatment_info = f_treatment_info.transpose()
+#export table head elements
 tf_treatment_info.to_excel('tf_treatment_info.xlsx')
 
 #%%
