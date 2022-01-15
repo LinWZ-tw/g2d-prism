@@ -1,11 +1,7 @@
 #env python3.8
 #coding: utf-8
 """
-@author: wei-zhi lin
-
-the following module/package might be needed
-pandas
-sys
+@author: Wei-Zhi Lin
 """
 #%%
 #import statement 
@@ -16,10 +12,8 @@ import sys
 print('path of input list =')
 input_path = input() 
     #type in the path of input
-    #example-input could be downloaded from here: 
-    #https://github.com/LinWZ-tw/g2d-prism/blob/main/example-input-compounds-for-py.csv
-    #or downloaded from here: 
-    #https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
+    #example-input could be downloaded from here: https://github.com/LinWZ-tw/g2d-prism/blob/main/example-input-compounds-for-py.csv
+    #or downloaded from here: https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
 input_compounds = pd.read_csv(input_path)
 #%%
 print('\n', 'selected compounds = \n', input_compounds, '\n')
@@ -56,13 +50,11 @@ if input_pt in list_primary_tissue:
     print ('input in list, checked!')
 else:
     print ('"', input_pt, '"', 'NOT in list, please check again.')
-    sys.exit() #if wrong input, exit.
+    sys.exit() #if input not in list, exit.
 print('--------------------------------------------------------------------')
 #%%
-#get prism data 19Q4
 print('Start to download data from PRSIM 19Q4. \n \
 (It will take few minutes)')
-import pandas as pd
 #get cell line information
 print('loading cell line information')
 cell_line_info = pd.read_csv('https://ndownloader.figshare.com/files/20237718')
@@ -83,21 +75,16 @@ f_treatment_info = pd.merge(input_compounds, treatment_info, on='name')
 f_treatment_info = f_treatment_info[['column_name', 'name']]
 print("number of treatments = ", len(f_treatment_info)-1) 
 print('--------------------------------------------------------------------')
-#%%
-#align selected cell line to prism data
+#%% align selected cell line to prism data
 f_prism_data = pd.merge(f_cell_line_info, prism_data, how = 'inner', left_on = 'depmap_id', right_on = 'Unnamed: 0', sort = bool)
-
 select_info = ['depmap_id', 'ccle_name','primary_tissue'] # select needed info. column
 headlist = select_info+list(f_treatment_info['column_name'])
 f_prism_data = f_prism_data[headlist]
-
-f_treatment_info = f_treatment_info.set_index('column_name')
-tf_treatment_info = f_treatment_info.transpose()
-tf_treatment_info = f_treatment_info.reset_index(drop=True)
-tf_treatment_info = f_treatment_info.transpose()
-#export table head elements
-tf_treatment_info.to_excel('tf_treatment_info.xlsx')
-
+#%% align treatment info to prism data
+f_prism_data = f_prism_data.transpose()
+f_prism_data.reset_index(level=0, inplace=True)
+f_prism_data = pd.merge(f_treatment_info, f_prism_data, how = 'outer', left_on = 'column_name', right_on = 'index', sort = bool)
+f_prism_data = f_prism_data.transpose()
 #%%
 #export results
 print('output result to "result.xlsx"')
