@@ -17,5 +17,3 @@ prism_data_19Q could be downloaded from "https://ndownloader.figshare.com/files/
 For py script:
 
 An example-input could be copied from here: https://github.com/LinWZ-tw/g2d-prism/blob/e246e7f4466b12b836133b2759866a4872d03ebe/example-input-compounds-for-py.csv
-
-or downloaded from here: https://drive.google.com/file/d/1wzSpgCAqR0E3rUOv6w2jv_TW0CtJcj1M/view?usp=sharing
