@@ -2,48 +2,21 @@
 #coding: utf-8
 """
 @author: Wei-Zhi Lin
-version: 1.000
+version: 1.001
 """
-#%%
-#import statement 
+#%% import statement 
 import pandas as pd
 import sys
-#%%
-#input data 
-print('path of input list =')
+#%% input compound data 
+print('path of compound input list =')
 input_path = input() 
     #type in the path of input
     #example-input could be downloaded from here: https://github.com/LinWZ-tw/g2d-prism/blob/main/example-input-compounds-for-py.csv
 input_compounds = pd.read_csv(input_path)
-#%%
-print('\n', 'selected compounds = \n', input_compounds, '\n')
-print('--------------------------------------------------------------------')
-print('select primary tissue of interest from the following list: \n\
-esophagus \n\
-uterus \n\
-pancreas \n\
-colorectal \n\
-liver \n\
-central_nervous_system \n\
-urinary_tract \n\
-lung \n\
-rhabdoid \n\
-ovary \n\
-bone \n\
-mesothelioma \n\
-skin \n\
-kidney \n\
-soft_tissue \n\
-thyroid \n\
-upper_aerodigestive \n\
-peripheral_nervous_system \n\
-gastric \n\
-bile_duct \n\
-breast \n\
-prostate \n\
-fibroblast \n\
-rhabdomyosarcoma \n\
-...............................copy the term and paste below:')
+print('\n', 'selected compounds = \n', input_compounds, '\n\n\n')
+#%% input primary tissue
+print('select primary tissue from the following list: esophagus , uterus , pancreas , colorectal , liver , central_nervous_system , urinary_tract , lung , rhabdoid , ovary , bone , mesothelioma , skin , kidney , soft_tissue , thyroid , upper_aerodigestive , peripheral_nervous_system , gastric , bile_duct , breast prostate , fibroblast , rhabdomyosarcoma. \n\
+copy and paste below:')
 list_primary_tissue = ['esophagus', 'uterus', 'pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
 input_pt = input() #input 
 if input_pt in list_primary_tissue:
@@ -52,7 +25,7 @@ else:
     print ('"', input_pt, '"', 'NOT in list, please check again.')
     sys.exit() #if input not in list, exit.
 print('--------------------------------------------------------------------')
-#%%
+#%% import data from depmap
 print('Start to download data from PRSIM 19Q4. \n \
 (It will take few minutes)')
 #get cell line information
@@ -65,8 +38,7 @@ treatment_info = pd.read_csv('https://ndownloader.figshare.com/files/20237715')
 print('loading sensitivity data')
 prism_data = pd.read_csv('https://ndownloader.figshare.com/files/20237709' )
 print('--------------------------------------------------------------------')
-#%%
-#filter cell line by selected primary tissue
+#%% filter cell line by selected primary tissue
 f_cell_line_info = cell_line_info[cell_line_info['primary_tissue'] == input_pt]
 f_cell_line_info = f_cell_line_info[['depmap_id','ccle_name','primary_tissue', 'secondary_tissue', 'tertiary_tissue']]
 print('number of selected cell lines =', len(f_cell_line_info))
@@ -85,7 +57,6 @@ f_prism_data = f_prism_data.transpose()
 f_prism_data.reset_index(level=0, inplace=True)
 f_prism_data = pd.merge(f_treatment_info, f_prism_data, how = 'outer', left_on = 'column_name', right_on = 'index', sort = bool)
 f_prism_data = f_prism_data.transpose()
-#%%
-#export results
+#%% export results
 print('output result to "result.xlsx"')
 f_prism_data.to_excel('result.xlsx')
