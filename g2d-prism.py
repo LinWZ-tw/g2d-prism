@@ -15,15 +15,64 @@ input_path = input()
 input_compounds = pd.read_csv(input_path)
 print('\n', 'selected compounds = \n', input_compounds, '\n\n\n')
 #%% input primary tissue
-print('select primary tissue from the following list: esophagus , uterus , pancreas , colorectal , liver , central_nervous_system , urinary_tract , lung , rhabdoid , ovary , bone , mesothelioma , skin , kidney , soft_tissue , thyroid , upper_aerodigestive , peripheral_nervous_system , gastric , bile_duct , breast prostate , fibroblast , rhabdomyosarcoma. \n\
-copy and paste below:')
-list_primary_tissue = ['esophagus', 'uterus', 'pancreas', 'colorectal, liver', 'central_nervous_system', 'urinary_tract', 'lung, rhabdoid', 'ovary', 'bone', 'mesothelioma', 'skin', 'kidney', 'soft_tissue', 'thyroid', 'upper_aerodigestive', 'peripheral_nervous_system', 'gastric', 'bile_duct', 'breast', 'prostate', 'fibroblast', 'rhabdomyosarcoma']
-input_pt = input() #input 
-if input_pt in list_primary_tissue:
-    print ('input in list, checked!')
-else:
-    print ('"', input_pt, '"', 'NOT in list, please check again.')
-    sys.exit() #if input not in list, exit.
+print('select primary tissue from the following list:','\n', 
+      '1: esophagus ','\n', 
+      '2: uterus','\n',
+      '3: pancreas','\n',
+      '4: colorectal','\n',
+      '5: liver','\n',
+      '6: central_nervous_system','\n',
+      '7: urinary_tract','\n',
+      '8: lung','\n',
+      '9: rhabdoid','\n',
+      '10: ovary','\n',
+      '11: bone','\n',
+      '12: mesothelioma','\n',
+      '13: skin','\n',
+      '14: kidney','\n',
+      '15: soft_tissue','\n',
+      '16: thyroid','\n',
+      '17: upper_aerodigestive','\n',
+      '18: peripheral_nervous_system','\n',
+      '19: gastric','\n',
+      '20: bile_duct','\n',
+      '21: breast','\n',
+      '22: prostate','\n',
+      '23: fibroblast','\n',
+      '24: rhabdomyosarcoma','\n','')
+list_primary_tissue ={
+    1: 'esophagus',
+    2: 'uterus',
+    3: 'pancreas',
+    4: 'colorectal',
+    5: 'liver',
+    6: 'central_nervous_system',
+    7: 'urinary_tract',
+    8: 'lung',
+    9: 'rhabdoid',
+    10: 'ovary',
+    11: 'bone',
+    12: 'mesothelioma',
+    13: 'skin',
+    14: 'kidney',
+    15: 'soft_tissue',
+    16: 'thyroid',
+    17: 'upper_aerodigestive',
+    18: 'peripheral_nervous_system',
+    19: 'gastric',
+    20: 'bile_duct',
+    21: 'breast',
+    22: 'prostate',
+    23: 'fibroblast',
+    24: 'rhabdomyosarcoma'}
+def check_input(number):
+    while number not in list_primary_tissue:
+        print ('entered number out of range, there are only 24 primary tissues')
+        number = int(input('try again: '))
+        print ()
+    return list_primary_tissue[number]
+number = int(input("select primary tissue (please enter the number ONLY): "))
+print (check_input(number))
 print('--------------------------------------------------------------------')
 #%% import data from depmap
 print('Start to download data from PRSIM 19Q4. \n \
